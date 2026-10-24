@@ -1,0 +1,910 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sports Wear Studio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: a locker-room portal parts onto a floodlit stadium, then deck → catalogue → design studio on a night-pitch ground */
+:root{
+  --night:#070d1f;
+  --navy:#0e1a3a;
+  --panel:#121f45;
+  --line:rgba(150,178,255,.16);
+  --chalk:#eef2ff;
+  --mute:#9eabd0;
+  --volt:#ffd21f;
+  --royal:#2a5cff;
+  --ink:#08102a;
+  --f-display:'Big Shoulders Display', Impact, 'Arial Narrow', sans-serif;
+  --f-body:'Be Vietnam Pro', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --gutter-l:max(16px, env(safe-area-inset-left, 0px));
+  --gutter-r:max(16px, env(safe-area-inset-right, 0px));
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--night);color:var(--chalk);font-family:var(--f-body);font-size:15px;line-height:1.6;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--night)}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--volt);outline-offset:3px}
+h1,h2,h3{text-wrap:balance;margin:0}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--volt);margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-left:var(--gutter-l);padding-right:var(--gutter-r)}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:4px;padding:13px 22px;font-weight:700;font-size:15px;text-decoration:none;cursor:pointer;transition:transform .2s,box-shadow .2s,background .2s}
+.btn-volt{background:var(--volt);color:var(--ink);box-shadow:0 8px 30px -10px rgba(255,210,31,.7)}
+.btn-volt:hover{transform:translateY(-2px);box-shadow:0 14px 34px -10px rgba(255,210,31,.85)}
+.btn-ghost{background:rgba(238,242,255,.08);color:var(--chalk);box-shadow:inset 0 0 0 1px rgba(238,242,255,.35)}
+.btn-ghost:hover{background:rgba(238,242,255,.16)}
+.btn.sm{padding:9px 14px;font-size:13px}
+
+/* ---------- nav ---------- */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;gap:24px;
+  padding-top:calc(env(safe-area-inset-top,0px) + 12px);padding-bottom:12px;padding-left:var(--gutter-l);padding-right:var(--gutter-r);
+  background:linear-gradient(to bottom,rgba(7,13,31,.8),rgba(7,13,31,0));transition:background .3s,box-shadow .3s}
+.nav.solid{background:rgba(7,13,31,.94);box-shadow:0 1px 0 var(--line)}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--f-display);font-weight:900;font-size:22px;letter-spacing:.04em}
+.brand svg{width:26px;height:26px;color:var(--volt)}
+.nav-links{display:flex;gap:22px;margin-left:auto}
+.nav-links a{text-decoration:none;font-size:14px;font-weight:500;color:var(--mute)}
+.nav-links a:hover{color:var(--chalk)}
+@media (max-width:760px){.nav-links{display:none}.nav .btn{margin-left:auto}}
+
+/* ---------- portal hero ---------- */
+.portal{position:relative;height:290vh;height:290svh}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:#02050f}
+.arena{position:absolute;inset:0;transform-origin:50% 60%;will-change:transform}
+.arena canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.flashes{position:absolute;inset:0;pointer-events:none}
+.flashes i{position:absolute;width:3px;height:3px;border-radius:50%;background:#fff;opacity:0;box-shadow:0 0 10px 4px rgba(255,255,255,.8);animation:flash 5s infinite}
+@keyframes flash{0%,92%,100%{opacity:0}94%{opacity:1}96%{opacity:.1}}
+.arena-ui{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;text-align:center;
+  padding-top:var(--top-pad,170px);padding-bottom:3vh;padding-left:var(--gutter-l);padding-right:var(--gutter-r)}
+.arena-copy{display:flex;flex-direction:column;align-items:center;gap:14px;max-width:760px}
+.arena-copy h1{font-family:var(--f-display);font-weight:900;font-size:clamp(34px,5.6vw,76px);line-height:.95;text-transform:uppercase;letter-spacing:.01em;text-shadow:0 4px 30px rgba(0,0,0,.6)}
+.arena-copy h1 em{font-style:normal;color:var(--volt)}
+.arena-copy .eyebrow{color:var(--chalk);opacity:.85}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:6px}
+.lineup{margin-top:auto;display:flex;align-items:flex-end;justify-content:center;gap:clamp(4px,1.6vw,26px);width:100%}
+.lu{background:none;border:0;padding:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;width:clamp(58px,13vw,160px)}
+.lu svg{width:100%;height:auto;filter:drop-shadow(0 18px 18px rgba(0,0,0,.55));transition:transform .3s}
+.lu:hover svg{transform:translateY(-8px) rotate(-2deg)}
+.lu span{font-size:clamp(10px,1.1vw,13px);font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--chalk);background:rgba(7,13,31,.65);padding:3px 8px;border-radius:2px;white-space:nowrap}
+.lu:nth-child(odd) svg{margin-bottom:12px}
+
+.door{position:absolute;top:0;bottom:0;width:50.4%;overflow:hidden;background:var(--navy);will-change:transform}
+.door-l{left:0;transform-origin:0 50%}
+.door-r{right:0;transform-origin:100% 50%}
+.door-fabric{position:absolute;inset:0;background:
+  radial-gradient(circle at 1px 1px,rgba(255,255,255,.08) 1px,transparent 1.6px) 0 0/7px 7px,
+  linear-gradient(118deg,transparent 0 22%,rgba(42,92,255,.32) 22% 38%,transparent 38% 55%,rgba(42,92,255,.16) 55% 63%,transparent 63% 80%,rgba(42,92,255,.24) 80%),
+  linear-gradient(160deg,#16296a 0%,#0b1636 60%,#060c22 100%)}
+.door-r .door-fabric{transform:scaleX(-1)}
+.door-num{position:absolute;bottom:-.12em;font-family:var(--f-display);font-weight:900;font-size:min(86vh,62vw);line-height:.8;color:transparent;-webkit-text-stroke:2px rgba(255,210,31,.5);user-select:none}
+.door-l .door-num{right:2.5vw}
+.door-r .door-num{left:2.5vw}
+.door-trim{position:absolute;top:0;bottom:0;width:16px;background:linear-gradient(90deg,var(--navy) 0 3px,var(--volt) 3px 8px,var(--navy) 8px 10px,#f4f6fb 10px 13px,var(--navy) 13px)}
+.door-l .door-trim{right:0}
+.door-r .door-trim{left:0;transform:scaleX(-1)}
+.door-tag{position:absolute;top:50%;font-size:11px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--mute);writing-mode:vertical-rl}
+.door-l .door-tag{right:28px;transform:translateY(-50%) rotate(180deg)}
+.door-r .door-tag{left:28px;transform:translateY(-50%)}
+.seam{position:absolute;left:50%;top:0;bottom:0;width:2px;transform:translateX(-50%);background:linear-gradient(transparent,#fff 30%,#fff 70%,transparent);box-shadow:0 0 40px 8px rgba(170,205,255,.75);pointer-events:none}
+
+.mark{position:absolute;inset:0;pointer-events:none}
+.w{position:absolute;top:50%;transform:translateY(-50%);font-family:var(--f-display);font-weight:900;font-size:clamp(40px,7vw,128px);line-height:.86;letter-spacing:.25em;white-space:nowrap;will-change:transform;text-shadow:0 6px 40px rgba(0,0,0,.55)}
+.w-l{right:calc(50% + 10px);transform-origin:100% 50%;color:var(--chalk)}
+.w-r{left:calc(50% + 10px);transform-origin:0 50%;color:var(--volt)}
+.hero-foot{position:absolute;left:0;right:0;bottom:5vh;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;padding-left:var(--gutter-l);padding-right:var(--gutter-r);pointer-events:none}
+.hero-foot p{margin:0;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--chalk);background:rgba(7,13,31,.6);padding:6px 12px;border-radius:2px}
+.scroll-cue{font-size:12px;color:var(--volt);letter-spacing:.2em;text-transform:uppercase;animation:cue 1.8s ease-in-out infinite}
+@keyframes cue{50%{transform:translateY(6px);opacity:.6}}
+
+/* ---------- sections ---------- */
+.sec{padding-block:clamp(64px,10vw,120px);scroll-margin-top:60px;position:relative;overflow-x:clip}
+@media (max-width:600px){.lu span{display:none}.nav .btn .long{display:none}}
+.sec-head{display:flex;flex-direction:column;gap:14px}
+.sec h2{font-family:var(--f-display);font-weight:900;font-size:clamp(36px,5vw,64px);line-height:.95;text-transform:uppercase}
+.lead{color:var(--mute);max-width:52ch;margin:0}
+.pitch-lines{background:
+  linear-gradient(var(--line),var(--line)) 50% 0/1px 100% no-repeat,
+  radial-gradient(circle at 50% 50%,transparent 179px,var(--line) 180px,transparent 181px),
+  var(--night)}
+
+/* deck */
+.deck-sec{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,90px);align-items:center}
+@media (max-width:860px){.deck-sec{grid-template-columns:1fr}}
+.sport-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:10px}
+.sport-box{display:flex;align-items:center;gap:12px;padding:14px;border-radius:6px;border:1px solid var(--line);background:var(--panel);cursor:pointer;text-align:left;font-weight:600;font-size:14px;transition:border-color .2s,background .2s,transform .2s}
+.sport-box svg{width:28px;height:28px;flex:none;color:var(--sc)}
+.sport-box:hover{transform:translateY(-2px);border-color:var(--sc)}
+.sport-box[aria-pressed="true"]{background:color-mix(in srgb,var(--sc) 22%,var(--panel));border-color:var(--sc)}
+.deck-wrap{display:flex;flex-direction:column;align-items:center;gap:22px}
+.deck{position:relative;width:min(340px,80vw);height:480px}
+.card{position:absolute;inset:0;border-radius:14px;padding:20px;display:flex;flex-direction:column;overflow:hidden;
+  background:radial-gradient(120% 75% at 50% 8%,color-mix(in srgb,var(--sc) 78%,#000) 0%,#0b1430 72%);
+  box-shadow:0 30px 60px -20px rgba(0,0,0,.7),inset 0 0 0 1px rgba(255,255,255,.1);
+  transition:transform .55s cubic-bezier(.2,.8,.2,1),opacity .4s;touch-action:pan-y;user-select:none}
+.card.top{cursor:grab}
+.card.top:active{cursor:grabbing}
+.card header{display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1}
+.card-idx{font-family:var(--f-display);font-weight:800;font-size:18px;color:rgba(255,255,255,.7);font-variant-numeric:tabular-nums}
+.card-tag{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:rgba(0,0,0,.35);padding:4px 9px;border-radius:2px}
+.card-word{position:absolute;left:-6px;right:-6px;top:52px;font-family:var(--f-display);font-weight:900;font-size:96px;line-height:.82;text-transform:uppercase;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.22);text-align:center;word-break:break-word}
+.card-jersey{position:relative;flex:1;display:flex;align-items:center;justify-content:center;min-height:0}
+.card-jersey svg{height:100%;max-height:230px;width:auto;filter:drop-shadow(0 20px 20px rgba(0,0,0,.5))}
+.card-feats{list-style:none;margin:0 0 14px;padding:0;display:grid;gap:4px;font-size:13px;position:relative}
+.card-feats li{display:flex;gap:8px;align-items:center}
+.card-feats li::before{content:"";width:12px;height:7px;border-left:2px solid var(--volt);border-bottom:2px solid var(--volt);transform:rotate(-45deg) translateY(-2px);flex:none}
+.card-go{position:relative;border:0;border-radius:4px;background:var(--chalk);color:var(--ink);font-weight:700;padding:12px;cursor:pointer}
+.card-go:hover{background:var(--volt)}
+.deck-ctrl{display:flex;align-items:center;gap:18px}
+.deck-ctrl button{width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:var(--panel);cursor:pointer;font-size:18px}
+.deck-ctrl button:hover{border-color:var(--volt);color:var(--volt)}
+.deck-count{font-family:var(--f-display);font-weight:800;font-size:20px;letter-spacing:.08em;font-variant-numeric:tabular-nums;min-width:72px;text-align:center}
+.deck-hint{font-size:12px;color:var(--mute);margin:0}
+
+/* catalogue */
+.cat-top{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:28px}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;max-width:100%}
+.tab{flex:none;border:1px solid var(--line);background:transparent;padding:9px 14px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:8px}
+.tab svg{width:16px;height:16px;color:var(--sc)}
+.tab[aria-pressed="true"]{background:var(--chalk);color:var(--ink);border-color:var(--chalk)}
+.feat-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.feat-row span{font-size:12px;padding:4px 10px;border-radius:2px;background:rgba(255,255,255,.06);color:var(--mute)}
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px}
+@media (max-width:540px){.cat-grid{grid-template-columns:1fr 1fr;gap:10px}}
+.design{display:flex;flex-direction:column;text-align:left;border:1px solid var(--line);background:var(--panel);border-radius:8px;overflow:hidden;cursor:pointer;padding:0;transition:border-color .25s,transform .25s;animation:rise .5s both}
+.design:hover{border-color:var(--sc);transform:translateY(-3px)}
+@keyframes rise{from{opacity:.001;transform:translateY(14px)}}
+.design-stage{aspect-ratio:1/1;max-width:100%;display:flex;align-items:center;justify-content:center;padding:18px;
+  background:radial-gradient(60% 55% at 50% 40%,color-mix(in srgb,var(--sc) 45%,transparent),transparent 70%),
+  repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 28px,transparent 28px 56px),#0a1230}
+.design-stage svg{width:82%;height:auto;filter:drop-shadow(0 16px 16px rgba(0,0,0,.5));transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+.design:hover .design-stage svg{transform:translateY(-6px) rotate(-3deg) scale(1.03)}
+.design-meta{padding:14px 16px 4px;display:flex;flex-direction:column;gap:2px}
+.design-meta .code{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--volt)}
+.design-meta b{font-family:var(--f-display);font-weight:800;font-size:24px;line-height:1.05;text-transform:uppercase}
+.design-meta small{color:var(--mute);font-size:12.5px}
+.design-go{padding:10px 16px 16px;font-size:13px;font-weight:600;color:var(--chalk);opacity:.8}
+.design:hover .design-go{opacity:1;color:var(--volt)}
+@media (max-width:540px){.design-meta b{font-size:19px}.design-stage{padding:10px}}
+
+/* studio */
+.studio{background:linear-gradient(180deg,var(--night),#0a1534 40%,var(--night))}
+.studio-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(28px,5vw,72px);align-items:start}
+@media (max-width:900px){.studio-grid{grid-template-columns:1fr}}
+.preview{position:sticky;top:76px;display:flex;flex-direction:column;align-items:center;gap:16px}
+@media (max-width:900px){.preview{position:relative;top:0}}
+.preview-stage{position:relative;width:100%;max-width:520px;aspect-ratio:1/1;border-radius:12px;overflow:hidden;perspective:1400px;
+  background:radial-gradient(55% 50% at 50% 38%,rgba(170,200,255,.28),transparent 70%),
+  linear-gradient(180deg,#0d1b45 0%,#0a1433 62%,#13692f 62.2%,#178038 100%)}
+.preview-stage::after{content:"";position:absolute;left:0;right:0;top:62%;height:2px;background:rgba(255,255,255,.4)}
+.flip{position:absolute;inset:6% 12% 10%;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.3,.7,.2,1);z-index:1}
+.flip.back{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;align-items:center;justify-content:center}
+.face.back-face{transform:rotateY(180deg)}
+.face svg{height:100%;width:auto;max-width:100%;filter:drop-shadow(0 26px 22px rgba(0,0,0,.55))}
+.pv-shadow{position:absolute;left:25%;right:25%;bottom:7%;height:22px;border-radius:50%;background:radial-gradient(rgba(0,0,0,.55),transparent 70%)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--panel)}
+.seg button{border:0;background:transparent;padding:8px 16px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;color:var(--mute)}
+.seg button[aria-pressed="true"]{background:var(--volt);color:var(--ink)}
+.pv-caption{margin:0;font-size:13px;color:var(--mute);letter-spacing:.06em;text-align:center}
+
+.controls{display:flex;flex-direction:column;gap:22px;min-width:0}
+.field{display:flex;flex-direction:column;gap:8px;border:0;padding:0;margin:0;min-width:0}
+.field > label,.field legend{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);padding:0}
+.row2{display:grid;grid-template-columns:1fr 120px;gap:14px}
+@media (max-width:420px){.row2{grid-template-columns:1fr 92px}}
+.input,select.input,textarea.input{width:100%;background:var(--panel);border:1px solid var(--line);border-radius:4px;color:var(--chalk);padding:12px 14px;font:inherit;font-size:15px}
+.input:focus{border-color:var(--volt);outline:none}
+textarea.input{resize:vertical;min-height:80px}
+#fName{text-transform:uppercase;letter-spacing:.06em}
+.swatches{display:flex;flex-wrap:wrap;gap:8px}
+.swatches input{position:absolute;opacity:0;pointer-events:none}
+.swatches label{width:32px;height:32px;border-radius:50%;background:var(--c);cursor:pointer;box-shadow:inset 0 0 0 1px rgba(255,255,255,.25);transition:transform .15s}
+.swatches label:hover{transform:scale(1.1)}
+.swatches input:checked + label{box-shadow:0 0 0 2px var(--night),0 0 0 4px var(--volt)}
+.swatches input:focus-visible + label{outline:2px solid var(--volt);outline-offset:4px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips button{border:1px solid var(--line);background:transparent;border-radius:999px;padding:7px 12px;font-size:12.5px;cursor:pointer;color:var(--mute)}
+.chips button[aria-pressed="true"]{border-color:var(--volt);color:var(--volt);background:rgba(255,210,31,.08)}
+.stepper{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:4px;background:var(--panel);width:max-content}
+.stepper button{width:44px;height:46px;border:0;background:transparent;font-size:20px;cursor:pointer}
+.stepper button:hover{color:var(--volt)}
+.stepper input{width:64px;text-align:center;border:0;background:transparent;color:var(--chalk);font:inherit;font-family:var(--f-display);font-weight:800;font-size:24px;-moz-appearance:textfield}
+.stepper input::-webkit-inner-spin-button{-webkit-appearance:none}
+.hint{font-size:12.5px;color:var(--mute);margin:0}
+.hint b{color:var(--volt)}
+.summary{background:#050a19;border:1px dashed rgba(255,210,31,.4);border-radius:6px;padding:16px;font-size:13px;line-height:1.7;white-space:pre-wrap;margin:0;font-family:var(--f-body);color:var(--chalk);overflow-wrap:anywhere}
+.send-row{display:flex;gap:10px;flex-wrap:wrap}
+.status{min-height:1.4em;font-size:13px;color:var(--volt);margin:0}
+
+/* process */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:44px;border-top:2px solid rgba(255,255,255,.55)}
+@media (max-width:860px){.steps{grid-template-columns:1fr 1fr;row-gap:28px}}
+@media (max-width:480px){.steps{grid-template-columns:1fr}}
+.step{padding:22px 22px 0 0;position:relative;min-width:0}
+.step::before{content:"";position:absolute;top:-8px;left:0;width:14px;height:14px;border-radius:50%;background:var(--volt);box-shadow:0 0 0 4px var(--night)}
+.step-n{font-family:var(--f-display);font-weight:900;font-size:54px;line-height:1;color:transparent;-webkit-text-stroke:1.5px var(--volt)}
+.step h3{font-family:var(--f-display);font-weight:800;font-size:24px;text-transform:uppercase;margin:6px 0}
+.step p{margin:0;color:var(--mute);font-size:14px}
+.methods{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.methods span{font-size:12px;border:1px solid var(--line);border-radius:2px;padding:3px 8px;color:var(--chalk)}
+
+/* cta band */
+.band{background:var(--volt);color:var(--ink);overflow:hidden;position:relative}
+.band::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,transparent 0 40px,rgba(8,16,42,.06) 40px 80px)}
+.band-in{position:relative;display:grid;grid-template-columns:1.3fr 1fr;gap:32px;align-items:center;padding-block:56px}
+@media (max-width:820px){.band-in{grid-template-columns:1fr}}
+.band h2{font-family:var(--f-display);font-weight:900;font-size:clamp(40px,6vw,80px);line-height:.9;text-transform:uppercase}
+.band p{margin:12px 0 0;font-weight:500;max-width:48ch}
+.zalo-card{background:var(--ink);color:var(--chalk);border-radius:10px;padding:22px;display:flex;flex-direction:column;gap:12px}
+.zalo-card small{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.phone{font-family:var(--f-display);font-weight:900;font-size:clamp(36px,5vw,52px);line-height:1;letter-spacing:.03em;user-select:all;font-variant-numeric:tabular-nums}
+.zalo-card .send-row .btn-ghost{box-shadow:inset 0 0 0 1px rgba(238,242,255,.3)}
+
+footer{padding-block:36px 48px;border-top:1px solid var(--line)}
+.trust{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px}
+@media (max-width:760px){.trust{grid-template-columns:1fr 1fr}}
+.trust div{display:flex;gap:10px;align-items:center;font-size:13px;font-weight:600}
+.trust svg{width:26px;height:26px;color:var(--volt);flex:none}
+.foot-note{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--mute);font-size:12.5px}
+
+.rm .portal{height:auto}
+.rm .stage{position:relative}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+
+<nav class="nav" id="nav">
+  <a class="brand" href="#top" aria-label="Sports Wear – về đầu trang">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 5.5a2 2 0 1 1 2.6 1.9c-.4.1-.6.5-.6.9V10"/><path d="M12 10 2.5 17.5h19z"/></svg>
+    SPORTS WEAR
+  </a>
+  <div class="nav-links">
+    <a href="#chon-mon">Chọn môn</a>
+    <a href="#mau-ao">Mẫu áo</a>
+    <a href="#thiet-ke">Thiết kế</a>
+    <a href="#quy-trinh">Quy trình</a>
+  </div>
+  <a class="btn btn-volt sm" href="https://zalo.me/0963265976" target="_blank" rel="noopener">Zalo<span class="long"> 0963 265 976</span></a>
+</nav>
+
+<section class="portal" id="top" aria-label="Giới thiệu">
+  <div class="stage" id="stage">
+    <div class="arena" id="arena">
+      <canvas id="arenaCanvas" aria-hidden="true"></canvas>
+      <div class="flashes" id="flashes" aria-hidden="true"></div>
+      <div class="arena-ui">
+        <div class="arena-copy" id="arenaCopy">
+          <p class="eyebrow">Bóng đá · Bóng chuyền · Bóng rổ · Cầu lông · Polo</p>
+          <h1>Đồng phục thể thao <em>theo thiết kế</em> của bạn</h1>
+          <div class="cta-row">
+            <a class="btn btn-volt" href="#chon-mon">Chọn mẫu áo</a>
+            <a class="btn btn-ghost" href="https://zalo.me/0963265976" target="_blank" rel="noopener">Tư vấn qua Zalo</a>
+          </div>
+        </div>
+        <div class="lineup" id="lineup"></div>
+      </div>
+    </div>
+    <div class="door door-l" id="doorL" aria-hidden="true">
+      <div class="door-fabric"></div><span class="door-num">0</span><span class="door-tag">Chất lượng đảm bảo</span><div class="door-trim"></div>
+    </div>
+    <div class="door door-r" id="doorR" aria-hidden="true">
+      <div class="door-fabric"></div><span class="door-num">5</span><span class="door-tag">Nhận đơn từ 5 bộ</span><div class="door-trim"></div>
+    </div>
+    <div class="seam" id="seam" aria-hidden="true"></div>
+    <div class="mark" aria-hidden="true"><span class="w w-l" id="wL">SPORTS</span><span class="w w-r" id="wR">WEAR</span></div>
+    <div class="hero-foot" id="heroFoot">
+      <p>Thời trang thể thao &amp; đồng phục · Free ship toàn quốc</p>
+      <span class="scroll-cue">Cuộn để ra sân ↓</span>
+    </div>
+  </div>
+</section>
+
+<section class="sec pitch-lines" id="chon-mon">
+  <div class="wrap deck-sec">
+    <div class="sec-head">
+      <p class="eyebrow">Bước 1 · Chọn môn</p>
+      <h2>Năm bộ môn,<br>một xưởng may</h2>
+      <p class="lead">Kéo thẻ sang hai bên để lật qua từng bộ môn, hoặc bấm thẳng vào ô bên dưới. Đội bóng, câu lạc bộ, trường học hay công ty đều có mẫu phù hợp.</p>
+      <div class="sport-grid" id="sportGrid"></div>
+    </div>
+    <div class="deck-wrap">
+      <div class="deck" id="deck" aria-live="polite"></div>
+      <div class="deck-ctrl">
+        <button type="button" id="prevBtn" aria-label="Bộ môn trước">←</button>
+        <span class="deck-count" id="deckCount">01 / 05</span>
+        <button type="button" id="nextBtn" aria-label="Bộ môn tiếp theo">→</button>
+      </div>
+      <p class="deck-hint">Vuốt hoặc kéo thẻ trên cùng</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="mau-ao">
+  <div class="wrap">
+    <div class="cat-top">
+      <div class="sec-head">
+        <p class="eyebrow">Bước 2 · Chọn mẫu</p>
+        <h2 id="catTitle">Áo bóng đá</h2>
+        <div class="feat-row" id="catFeats"></div>
+      </div>
+      <div class="tabs" id="tabs" aria-label="Lọc theo bộ môn"></div>
+    </div>
+    <div class="cat-grid" id="catGrid"></div>
+  </div>
+</section>
+
+<section class="sec studio" id="thiet-ke">
+  <div class="wrap studio-grid">
+    <div class="preview">
+      <div class="preview-stage">
+        <div class="flip" id="flip">
+          <div class="face" id="pvFront"></div>
+          <div class="face back-face" id="pvBack"></div>
+        </div>
+        <div class="pv-shadow"></div>
+      </div>
+      <div class="seg" role="group" aria-label="Mặt áo">
+        <button type="button" data-view="front" aria-pressed="true">Mặt trước</button>
+        <button type="button" data-view="back" aria-pressed="false">Mặt sau</button>
+      </div>
+      <p class="pv-caption" id="pvCaption"></p>
+    </div>
+
+    <form class="controls" id="studioForm" novalidate>
+      <div class="sec-head">
+        <p class="eyebrow">Bước 3 · Thiết kế</p>
+        <h2>Phòng thiết kế</h2>
+        <p class="lead">Đổi màu, họa tiết, tên và số. Xem trước ngay trên áo, rồi gửi mẫu qua Zalo để nhận bản thiết kế 3D và báo giá.</p>
+      </div>
+
+      <div class="field">
+        <label for="fDesign">Mẫu áo</label>
+        <select class="input" id="fDesign"></select>
+      </div>
+
+      <fieldset class="field">
+        <legend>Họa tiết</legend>
+        <div class="chips" id="patternChips"></div>
+      </fieldset>
+
+      <fieldset class="field"><legend>Màu chính</legend><div class="swatches" id="sw1"></div></fieldset>
+      <fieldset class="field"><legend>Màu phối</legend><div class="swatches" id="sw2"></div></fieldset>
+      <fieldset class="field"><legend>Màu chữ &amp; số</legend><div class="swatches" id="sw3"></div></fieldset>
+
+      <div class="row2">
+        <div class="field">
+          <label for="fName">Tên in lưng</label>
+          <input class="input" id="fName" maxlength="12" value="Khánh" autocomplete="off">
+        </div>
+        <div class="field">
+          <label for="fNum">Số áo</label>
+          <input class="input" id="fNum" inputmode="numeric" maxlength="2" value="10" autocomplete="off">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="fQty">Số lượng (bộ)</label>
+        <div class="stepper">
+          <button type="button" id="qtyMinus" aria-label="Giảm số lượng">−</button>
+          <input id="fQty" inputmode="numeric" value="10" aria-describedby="qtyHint">
+          <button type="button" id="qtyPlus" aria-label="Tăng số lượng">+</button>
+        </div>
+        <p class="hint" id="qtyHint">Nhận đơn từ <b>5 bộ</b>. Số lượng càng lớn, ưu đãi càng tốt.</p>
+      </div>
+
+      <div class="field">
+        <label for="fNote">Ghi chú</label>
+        <textarea class="input" id="fNote" placeholder="VD: 4 áo size M, 6 áo size L, thêu logo ngực trái"></textarea>
+      </div>
+
+      <div class="field">
+        <label for="summary">Nội dung gửi shop</label>
+        <pre class="summary" id="summary" tabindex="0"></pre>
+      </div>
+
+      <div class="send-row">
+        <a class="btn btn-volt" id="zaloBtn" href="https://zalo.me/0963265976" target="_blank" rel="noopener">Gửi mẫu qua Zalo</a>
+        <button type="button" class="btn btn-ghost" id="copyBtn">Chép nội dung</button>
+      </div>
+      <p class="status" id="status" role="status"></p>
+    </form>
+  </div>
+</section>
+
+<section class="sec" id="quy-trinh">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Bạn có mẫu, xưởng biến ý tưởng thành áo</p>
+      <h2>Từ ý tưởng đến sân đấu</h2>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-n">1</div><h3>Gửi mẫu</h3><p>Gửi ảnh mẫu, logo, màu đội hoặc chỉ một ý tưởng qua Zalo.</p></div>
+      <div class="step"><div class="step-n">2</div><h3>Thiết kế 3D</h3><p>Tư vấn miễn phí. Bạn duyệt bản 3D trước khi xưởng sản xuất.</p></div>
+      <div class="step"><div class="step-n">3</div><h3>In &amp; may</h3><p>Đa dạng chất liệu, màu sắc, in tên số theo từng người.</p>
+        <div class="methods"><span>In chuyển nhiệt</span><span>In decal</span><span>Thêu logo</span></div></div>
+      <div class="step"><div class="step-n">4</div><h3>Giao toàn quốc</h3><p>Free ship mọi đơn hàng, giao tận tay đội của bạn.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap band-in">
+    <div>
+      <h2>Số lượng càng lớn,<br>ưu đãi càng ngon</h2>
+      <p>Nhận đơn từ 5 bộ cho đội bóng, câu lạc bộ, trường học và công ty. Chốt mẫu hôm nay, tự tin ra sân cùng đồng đội.</p>
+    </div>
+    <div class="zalo-card">
+      <small>Liên hệ ngay qua Zalo</small>
+      <span class="phone" id="phone">0963 265 976</span>
+      <div class="send-row">
+        <a class="btn btn-volt sm" href="https://zalo.me/0963265976" target="_blank" rel="noopener">Mở Zalo</a>
+        <button type="button" class="btn btn-ghost sm" id="copyPhone">Chép số</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="trust">
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 4.5 3.4 8 8 9 4.6-1 8-4.5 8-9V6z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>Chất lượng đảm bảo</div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Giao hàng toàn quốc</div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h11v9H2zM13 10h4l3 3v3h-7"/><circle cx="6" cy="17.5" r="1.8"/><circle cx="16.5" cy="17.5" r="1.8"/></svg>Free ship mọi đơn</div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M15 14.5c3 0 6 1.8 6 5.5"/></svg>Nhận từ 5 bộ</div>
+    </div>
+    <div class="foot-note">
+      <span>© SPORTS WEAR · Thời trang thể thao &amp; đồng phục</span>
+      <span>Bản demo · hình áo là minh họa, mẫu thật do xưởng thiết kế</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(() => {
+const ZALO = 'https://zalo.me/0963265976';
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (reduced) document.documentElement.classList.add('rm');
+
+/* ---------- data ---------- */
+const COLORS = [
+  ['Xanh hoàng gia','#1f4fd8'],['Xanh navy','#0f1b3d'],['Đỏ','#d7192f'],['Cam','#f26a1b'],
+  ['Vàng','#ffcc00'],['Xanh lá','#1fa34a'],['Xanh ngọc','#11b5c9'],['Tím','#6a35d6'],
+  ['Hồng','#e8418f'],['Bạc','#aab3c2'],['Đen','#121318'],['Trắng','#f4f6fb']
+];
+const colorName = v => (COLORS.find(c => c[1] === v) || ['Tùy chọn'])[0];
+const PATTERNS = {
+  shards:'Mảnh kính', stripes:'Sọc dọc', hoops:'Sọc ngang', sash:'Sọc chéo', halftone:'Chấm bi',
+  chevron:'Chữ V', waves:'Sóng', split:'Chia đôi', gradient:'Chuyển màu', flames:'Ngọn lửa',
+  panels:'Viền hông', raglan:'Tay raglan', band:'Băng ngực', solid:'Trơn'
+};
+const ICONS = {
+  ball:'<circle cx="12" cy="12" r="9"/><path d="m12 7.5 3.8 2.8-1.4 4.4H9.6L8.2 10.3z"/><path d="M12 7.5V3.2M15.8 10.3l4-1.3M14.4 14.7l2.5 3.5M9.6 14.7l-2.5 3.5M8.2 10.3l-4-1.3"/>',
+  volley:'<circle cx="12" cy="12" r="9"/><path d="M12 3c-.5 4.5 1.5 7.5 8.6 8.2M12 12c-3.8 1.6-6 4.6-6.2 7.8M12 12c-2.6-3.4-6.4-4.2-9-3"/>',
+  basket:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3v18M5.6 5.6c3.1 3.4 3.1 9.4 0 12.8M18.4 5.6c-3.1 3.4-3.1 9.4 0 12.8"/>',
+  shuttle:'<path d="M9.5 17h5v1.5a2.5 2.5 0 0 1-5 0z"/><path d="M9.5 17 6 3.5M14.5 17 18 3.5M12 17V3M7.3 9h9.4M8.3 13h7.4"/>',
+  polo:'<path d="M8.5 3 12 5.5 15.5 3l4.5 2 2 5-3 1.2V21H5V11.2L2 10l2-5z"/><path d="M12 5.5V11"/>'
+};
+const icon = k => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[k]}</svg>`;
+
+const W = '#f4f6fb';
+const SPORTS = [
+  { key:'bong-da', name:'Áo bóng đá', short:'Bóng đá', word:'Bóng đá', color:'#2a5cff', icon:'ball', cut:'tee', neck:'v',
+    feats:['Thoáng mát, nhẹ','Thấm hút mồ hôi tốt','In tên, số theo yêu cầu'],
+    designs:[
+      { code:'BD-01', name:'Thủy Tinh', pattern:'shards', c:['#1f4fd8','#0f1b3d',W] },
+      { code:'BD-02', name:'Sọc Thành Phố', pattern:'stripes', c:[W,'#11b5c9','#0f1b3d'] },
+      { code:'BD-03', name:'Lửa Sân Cỏ', pattern:'sash', c:['#121318','#d7192f','#ffcc00'] },
+      { code:'BD-04', name:'Đêm Sao', pattern:'halftone', c:['#0f1b3d','#1f4fd8','#ffcc00'] }
+    ]},
+  { key:'bong-chuyen', name:'Áo bóng chuyền', short:'Bóng chuyền', word:'Bóng chuyền', color:'#e5263b', icon:'volley', cut:'tee', neck:'round',
+    feats:['Co giãn tốt','Thoải mái vận động','Nhiều màu sắc, mẫu mã'],
+    designs:[
+      { code:'BC-01', name:'Đội Tuyển', pattern:'chevron', c:['#d7192f','#121318',W] },
+      { code:'BC-02', name:'Gió Biển', pattern:'waves', c:['#11b5c9',W,'#0f1b3d'] },
+      { code:'BC-03', name:'Hồng Phấn', pattern:'split', c:['#121318','#e8418f',W] },
+      { code:'BC-04', name:'Ánh Kim', pattern:'gradient', c:['#ffcc00','#f26a1b','#121318'] }
+    ]},
+  { key:'bong-ro', name:'Áo bóng rổ', short:'Bóng rổ', word:'Bóng rổ', color:'#f26a1b', icon:'basket', cut:'tank', neck:'tank',
+    feats:['Chất liệu cao cấp','Thoáng khí, nhẹ','Form đẹp, dễ vận động'],
+    designs:[
+      { code:'BR-01', name:'Tím Vàng', pattern:'panels', c:['#121318','#6a35d6','#ffcc00'] },
+      { code:'BR-02', name:'Bò Tót', pattern:'panels', c:[W,'#d7192f','#d7192f'] },
+      { code:'BR-03', name:'Hỏa Long', pattern:'flames', c:['#121318','#f26a1b',W] },
+      { code:'BR-04', name:'Đường Phố', pattern:'hoops', c:['#1fa34a','#121318',W] }
+    ]},
+  { key:'cau-long', name:'Áo cầu lông', short:'Cầu lông', word:'Cầu lông', color:'#22b14c', icon:'shuttle', cut:'tee', neck:'round',
+    feats:['Siêu nhẹ, thoáng mát','Co giãn linh hoạt','Phù hợp mọi trình độ'],
+    designs:[
+      { code:'CL-01', name:'Lông Vũ', pattern:'shards', c:[W,'#11b5c9','#1f4fd8'] },
+      { code:'CL-02', name:'Chồi Non', pattern:'raglan', c:['#121318','#1fa34a',W] },
+      { code:'CL-03', name:'Tia Chớp', pattern:'sash', c:['#1f4fd8','#ffcc00',W] },
+      { code:'CL-04', name:'Hoàng Hôn', pattern:'gradient', c:['#e8418f','#f26a1b',W] }
+    ]},
+  { key:'polo', name:'Áo polo đồng phục', short:'Polo', word:'Polo', color:'#7b3fe4', icon:'polo', cut:'polo', neck:'polo',
+    feats:['Lịch sự, chuyên nghiệp','Nhận in/thêu logo','Đa dạng mẫu mã, size'],
+    designs:[
+      { code:'PL-01', name:'Văn Phòng', pattern:'solid', c:['#0f1b3d',W,W] },
+      { code:'PL-02', name:'Tinh Khôi', pattern:'solid', c:[W,'#0f1b3d','#0f1b3d'] },
+      { code:'PL-03', name:'Đồng Hành', pattern:'band', c:['#121318','#ffcc00',W] },
+      { code:'PL-04', name:'Rừng Thông', pattern:'raglan', c:['#1fa34a','#0f1b3d',W] }
+    ]}
+];
+
+/* ---------- jersey drawing ---------- */
+const TEE = 'M108 22 L62 38 Q34 48 22 72 L4 118 L52 138 L70 100 L72 300 Q72 313 84 313 L216 313 Q228 313 228 300 L230 100 L248 138 L296 118 L278 72 Q266 48 238 38 L192 22 ';
+const NECK = { v:'L150 70 Z', round:'Q150 64 108 22 Z', polo:'Q150 44 108 22 Z', back:'Q150 38 108 22 Z' };
+const NECK_TRIM = { v:'M108 22 L150 70 L192 22', round:'M108 22 Q150 64 192 22', polo:'M108 22 Q150 44 192 22', back:'M108 22 Q150 38 192 22' };
+const TANK = n => `M96 18 Q150 ${n} 204 18 L232 22 Q236 92 262 118 L262 300 Q262 313 250 313 L50 313 Q38 313 38 300 L38 118 Q64 92 68 22 Z`;
+let uid = 0;
+const esc = s => String(s).replace(/[&<>"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]));
+
+function patternSVG(p, c1, c2, c3, id, cut) {
+  switch (p) {
+    case 'shards': return `<path d="M0 60 L120 0 L60 150Z M300 40 L180 160 L300 210Z M0 210 L140 330 L0 330Z M150 120 L300 330 L200 330 L105 215Z" fill="${c2}" opacity=".85"/><path d="M60 150 L150 120 L105 215Z M180 160 L240 0 L300 40Z M120 0 L215 0 L150 120Z" fill="${c3}" opacity=".2"/>`;
+    case 'stripes': { let s=''; for (let x=64; x<=236; x+=34) s += `<rect x="${x-7}" y="0" width="14" height="330" fill="${c2}"/>`; return s; }
+    case 'hoops': { let s=''; for (let y=104; y<330; y+=56) s += `<rect x="0" y="${y}" width="300" height="26" fill="${c2}"/>`; return s; }
+    case 'sash': return `<polygon points="50,0 125,0 300,205 300,295" fill="${c2}"/><polygon points="136,0 150,0 300,176 300,193" fill="${c3}" opacity=".85"/>`;
+    case 'halftone': { let s=''; for (let y=118; y<330; y+=12) { const r = Math.min(5, (y-108)/38); for (let x=(y/12)%2?6:0; x<=300; x+=12) s += `<circle cx="${x}" cy="${y}" r="${r.toFixed(1)}"/>`; } return `<g fill="${c2}">${s}</g><rect x="0" y="100" width="300" height="5" fill="${c3}" opacity=".9"/>`; }
+    case 'chevron': return `<path d="M0 108 L150 190 L300 108 L300 150 L150 232 L0 150Z" fill="${c2}"/><path d="M0 168 L150 250 L300 168 L300 181 L150 263 L0 181Z" fill="${c3}" opacity=".9"/>`;
+    case 'waves': return `<path d="M0 175 Q50 140 100 175 T200 175 T300 175 V330 H0Z" fill="${c2}"/><path d="M0 212 Q50 180 100 212 T200 212 T300 212" stroke="${c3}" stroke-width="9" fill="none" opacity=".8"/>`;
+    case 'split': return `<rect x="150" y="0" width="150" height="330" fill="${c2}"/><rect x="146" y="0" width="8" height="330" fill="${c3}"/>`;
+    case 'gradient': return `<defs><linearGradient id="${id}g" x1="0" y1="0" x2="0.35" y2="1"><stop offset=".15" stop-color="${c1}"/><stop offset="1" stop-color="${c2}"/></linearGradient></defs><rect width="300" height="330" fill="url(#${id}g)"/>`;
+    case 'flames': {
+      const h = [175,222,158,212,140,205,150,214,165,226];
+      let a = 'M0 330 L0 250', b = 'M0 330 L0 280';
+      h.forEach((v,i) => { const x = i*30; a += ` L${x+15} ${v} L${x+30} 250`; b += ` L${x+15} ${v+52} L${x+30} 280`; });
+      return `<path d="${a} L300 330Z" fill="${c2}"/><path d="${b} L300 330Z" fill="${c3}" opacity=".45"/>`;
+    }
+    case 'panels': return cut === 'tank'
+      ? `<rect x="38" y="0" width="34" height="330" fill="${c2}"/><rect x="228" y="0" width="34" height="330" fill="${c2}"/><rect x="74" y="0" width="5" height="330" fill="${c3}"/><rect x="221" y="0" width="5" height="330" fill="${c3}"/>`
+      : `<rect x="70" y="0" width="22" height="330" fill="${c2}"/><rect x="208" y="0" width="22" height="330" fill="${c2}"/>`;
+    case 'raglan': return `<polygon points="112,18 0,26 0,150 74,112 98,58" fill="${c2}"/><polygon points="188,18 300,26 300,150 226,112 202,58" fill="${c2}"/>`;
+    case 'band': return `<rect x="0" y="126" width="300" height="24" fill="${c2}"/><rect x="0" y="154" width="300" height="6" fill="${c3}"/>`;
+    default: return '';
+  }
+}
+
+function jerseySVG(o) {
+  const id = 'j' + (++uid);
+  const { cut, neck, pattern, view = 'front' } = o;
+  const [c1, c2, c3] = o.c;
+  const isTank = cut === 'tank', isPolo = cut === 'polo';
+  const nk = view === 'back' ? 'back' : neck;
+  const body = isTank ? TANK(view === 'back' ? 52 : 82) : TEE + NECK[isPolo && view === 'front' ? 'polo' : nk];
+  let trims = '';
+  if (isTank) {
+    trims = `<g stroke="${c2}" stroke-width="10" fill="none"><path d="M68 22 Q64 92 38 118"/><path d="M232 22 Q236 92 262 118"/><path d="M96 18 Q150 ${view === 'back' ? 52 : 82} 204 18"/></g>`;
+  } else {
+    trims = `<polygon points="4,118 52,138 57,125 9,105" fill="${c2}"/><polygon points="296,118 248,138 243,125 291,105" fill="${c2}"/><path d="${NECK_TRIM[isPolo && view === 'front' ? 'polo' : nk]}" stroke="${c2}" stroke-width="8" fill="none"/>`;
+  }
+  const txt = (x, y, size, str, extra = '') =>
+    `<text x="${x}" y="${y}" text-anchor="middle" font-family="'Big Shoulders Display', Impact, sans-serif" font-weight="900" font-size="${size}" fill="${c3}" stroke="rgba(0,0,0,.28)" stroke-width="2" paint-order="stroke" ${extra}>${esc(str)}</text>`;
+  const num = (o.number ?? '10').toString();
+  const name = (o.name ?? '').toString().toUpperCase();
+  let deco = '';
+  if (view === 'front') {
+    if (isPolo) {
+      deco = `<path d="M100 16 Q150 36 200 16 L206 28 L154 60 L146 60 L94 28 Z" fill="${c2}" stroke="rgba(0,0,0,.3)" stroke-width="1.5"/>
+        <rect x="141" y="56" width="18" height="70" rx="2" fill="${c1}" stroke="rgba(0,0,0,.25)" stroke-width="1.5"/>
+        <g fill="${c3}" opacity=".9"><circle cx="150" cy="74" r="3"/><circle cx="150" cy="92" r="3"/><circle cx="150" cy="110" r="3"/></g>
+        <path d="M196 86 l12 0 0 10 q0 9 -6 12 q-6 -3 -6 -12z" fill="none" stroke="${c3}" stroke-width="2"/>
+        ${txt(202, 128, 10, 'YOUR LOGO', 'letter-spacing="1"')}`;
+    } else if (isTank) {
+      deco = txt(150, 118, 30, 'TEAM', 'letter-spacing="4"') + txt(150, 212, 92, num);
+    } else {
+      deco = `<circle cx="198" cy="92" r="13" fill="none" stroke="${c3}" stroke-width="2.5"/><path d="M198 84 l5 9 -5 7 -5 -7z" fill="${c3}"/>
+        ${txt(104, 98, 15, 'SW', 'letter-spacing="1"')}${txt(150, 176, 58, num)}`;
+    }
+  } else {
+    if (isPolo) {
+      deco = `<path d="M100 16 Q150 30 200 16 L204 28 Q150 46 96 28 Z" fill="${c2}" stroke="rgba(0,0,0,.3)" stroke-width="1.5"/>` + txt(150, 112, 26, name || 'TEAM', 'letter-spacing="3"');
+    } else {
+      deco = txt(150, isTank ? 92 : 96, 28, name, 'letter-spacing="3"') + txt(150, isTank ? 238 : 240, 136, num);
+    }
+  }
+  return `<svg viewBox="0 0 300 330" class="jersey" role="img" aria-label="${esc(o.label || 'Áo')}">
+    <defs><clipPath id="${id}c"><path d="${body}"/></clipPath>
+    <linearGradient id="${id}s" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".32"/><stop offset=".28" stop-color="#fff" stop-opacity=".1"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset=".72" stop-color="#fff" stop-opacity=".07"/><stop offset="1" stop-color="#000" stop-opacity=".36"/></linearGradient></defs>
+    <g clip-path="url(#${id}c)"><rect width="300" height="330" fill="${c1}"/>${patternSVG(pattern, c1, c2, c3, id, cut)}${trims}<rect width="300" height="330" fill="url(#${id}s)"/></g>
+    <path d="${body}" fill="none" stroke="rgba(0,0,0,.4)" stroke-width="2"/>${deco}</svg>`;
+}
+const designSVG = (si, d, extra = {}) => jerseySVG({ cut:SPORTS[si].cut, neck:SPORTS[si].neck, pattern:d.pattern, c:d.c, label:`${SPORTS[si].name} ${d.code} ${d.name}`, ...extra });
+
+/* ---------- arena canvas ---------- */
+const canvas = document.getElementById('arenaCanvas');
+function rng(seed) { return () => (seed = (seed * 16807) % 2147483647) / 2147483647; }
+function drawArena() {
+  const w = canvas.clientWidth, h = canvas.clientHeight;
+  if (!w || !h) return;
+  const dpr = Math.min(2, devicePixelRatio || 1);
+  canvas.width = w * dpr; canvas.height = h * dpr;
+  const x = canvas.getContext('2d');
+  x.setTransform(dpr, 0, 0, dpr, 0, 0);
+  const R = rng(42);
+  let g = x.createLinearGradient(0, 0, 0, h * .6);
+  g.addColorStop(0, '#030712'); g.addColorStop(.55, '#0a1c55'); g.addColorStop(1, '#14378c');
+  x.fillStyle = g; x.fillRect(0, 0, w, h);
+  const sTop = h * .34, sBot = h * .6;
+  x.fillStyle = '#091330'; x.fillRect(0, sTop, w, sBot - sTop);
+  x.strokeStyle = 'rgba(120,150,255,.12)'; x.lineWidth = 1;
+  for (let i = 1; i < 6; i++) { const y = sTop + (sBot - sTop) * i / 6; x.beginPath(); x.moveTo(0, y); x.lineTo(w, y); x.stroke(); }
+  const crowd = ['#ffd21f','#ffffff','#2a5cff','#ff4d5e','#7aa2ff','#1fa34a','#f26a1b'];
+  const n = Math.min(5000, (w * (sBot - sTop)) / 70);
+  for (let i = 0; i < n; i++) {
+    const cx = R() * w, cy = sTop + 3 + R() * (sBot - sTop - 8), d = .6 + (cy - sTop) / (sBot - sTop);
+    x.globalAlpha = .2 + R() * .55; x.fillStyle = crowd[(R() * crowd.length) | 0];
+    x.fillRect(cx, cy, 1.3 * d, 1.6 * d);
+  }
+  x.globalAlpha = 1;
+  const bH = Math.max(16, h * .032), bY = sBot;
+  x.fillStyle = '#0e1a3a'; x.fillRect(0, bY, w, bH);
+  x.fillStyle = '#ffd21f'; x.fillRect(0, bY, w, 2); x.fillRect(0, bY + bH - 2, w, 2);
+  x.font = `800 ${Math.round(bH * .62)}px 'Big Shoulders Display', Impact, sans-serif`;
+  x.textBaseline = 'middle';
+  const ad = 'SPORTS WEAR   ·   NHẬN TỪ 5 BỘ   ·   FREE SHIP TOÀN QUỐC   ·   ';
+  const aw = x.measureText(ad).width || 400;
+  for (let ax = -aw * .3; ax < w; ax += aw) x.fillText(ad, ax, bY + bH / 2 + 1);
+  const pTop = bY + bH, pH = h - pTop;
+  for (let k = 0; k < 12; k++) {
+    const y0 = pTop + pH * Math.pow(k / 12, 1.5), y1 = pTop + pH * Math.pow((k + 1) / 12, 1.5);
+    x.fillStyle = k % 2 ? '#14713a' : '#1a8443'; x.fillRect(0, y0, w, y1 - y0 + 1);
+  }
+  x.strokeStyle = 'rgba(255,255,255,.55)'; x.lineWidth = 2;
+  const yc = pTop + pH * .3;
+  x.beginPath(); x.moveTo(w * .04, pTop + 4); x.lineTo(w * .96, pTop + 4); x.stroke();
+  x.beginPath(); x.moveTo(w * .04, pTop + 4); x.lineTo(-w * .4, h); x.moveTo(w * .96, pTop + 4); x.lineTo(w * 1.4, h); x.stroke();
+  x.beginPath(); x.moveTo(-w * .1, yc); x.lineTo(w * 1.1, yc); x.stroke();
+  x.beginPath(); x.ellipse(w / 2, yc, Math.min(w * .2, 260), pH * .12, 0, 0, Math.PI * 2); x.stroke();
+  x.globalCompositeOperation = 'lighter';
+  [.09, .3, .7, .91].forEach(fx => {
+    const tx = w * fx, ty = h * .1;
+    x.fillStyle = 'rgba(40,60,110,.9)'; x.fillRect(tx - 2, ty, 4, sTop - ty);
+    const tgt = tx + (w / 2 - tx) * .7;
+    const bg = x.createLinearGradient(0, ty, 0, h);
+    bg.addColorStop(0, 'rgba(190,215,255,.16)'); bg.addColorStop(1, 'rgba(190,215,255,0)');
+    x.fillStyle = bg; x.beginPath(); x.moveTo(tx - 24, ty); x.lineTo(tx + 24, ty); x.lineTo(tgt + w * .2, h); x.lineTo(tgt - w * .2, h); x.closePath(); x.fill();
+    const rg = x.createRadialGradient(tx, ty, 0, tx, ty, Math.max(w, h) * .22);
+    rg.addColorStop(0, 'rgba(200,225,255,.55)'); rg.addColorStop(.25, 'rgba(120,160,255,.14)'); rg.addColorStop(1, 'rgba(120,160,255,0)');
+    x.fillStyle = rg; x.fillRect(0, 0, w, h);
+    x.fillStyle = '#fff';
+    for (let r = 0; r < 3; r++) for (let c = 0; c < 5; c++) x.fillRect(tx - 22 + c * 9, ty - 14 + r * 7, 6, 4);
+  });
+  x.globalCompositeOperation = 'source-over';
+  const vg = x.createRadialGradient(w / 2, h * .55, Math.min(w, h) * .3, w / 2, h * .55, Math.max(w, h) * .8);
+  vg.addColorStop(0, 'rgba(2,5,15,0)'); vg.addColorStop(1, 'rgba(2,5,15,.75)');
+  x.fillStyle = vg; x.fillRect(0, 0, w, h);
+}
+const flashes = document.getElementById('flashes');
+{ const R = rng(7); for (let i = 0; i < 16; i++) { const f = document.createElement('i');
+  f.style.left = (R() * 100) + '%'; f.style.top = (35 + R() * 23) + '%';
+  f.style.animationDelay = (R() * 6).toFixed(2) + 's'; f.style.animationDuration = (4 + R() * 4).toFixed(2) + 's'; flashes.appendChild(f); } }
+
+/* ---------- hero lineup ---------- */
+const lineup = document.getElementById('lineup');
+lineup.innerHTML = SPORTS.map((s, i) => `<button type="button" class="lu" data-sport="${i}">${designSVG(i, s.designs[0], { number: String([10,6,23,8,'']  [i]) })}<span>${s.short}</span></button>`).join('');
+lineup.addEventListener('click', e => { const b = e.target.closest('.lu'); if (b) { showSport(+b.dataset.sport); goTo('mau-ao'); } });
+
+/* ---------- portal scroll ---------- */
+const portal = document.getElementById('top'), stage = document.getElementById('stage');
+const arena = document.getElementById('arena'), doorL = document.getElementById('doorL'), doorR = document.getElementById('doorR');
+const seam = document.getElementById('seam'), wL = document.getElementById('wL'), wR = document.getElementById('wR');
+const heroFoot = document.getElementById('heroFoot'), arenaCopy = document.getElementById('arenaCopy');
+const luItems = [...lineup.children], nav = document.getElementById('nav');
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+let crack = 0, geo = {};
+function measure() {
+  wL.style.letterSpacing = wR.style.letterSpacing = '0em';
+  geo = { w0L: wL.offsetWidth, w0R: wR.offsetWidth, hW: wL.offsetHeight, vw: stage.clientWidth, vh: stage.clientHeight,
+          gutter: Math.max(16, stage.clientWidth * .025) };
+  const room = geo.vw / 2 - 10 - geo.gutter;
+  geo.sMax = Math.min(1.7, room / Math.max(geo.w0L, geo.w0R));
+  geo.topY = 76 + geo.hW * geo.sMax / 2;
+  arena.style.setProperty('--top-pad', Math.round(76 + geo.hW * geo.sMax + 18) + 'px');
+}
+function progress() {
+  if (reduced) return 1;
+  const total = portal.offsetHeight - innerHeight;
+  return total > 0 ? clamp(-portal.getBoundingClientRect().top / total) : 1;
+}
+function render() {
+  const p = progress();
+  const open = Math.max(crack, ease(clamp((p - .02) / .58)));
+  const swing = Math.sin(open * Math.PI) * 14;
+  doorL.style.transform = `perspective(1400px) translateX(${-open * 102}%) rotateY(${swing}deg)`;
+  doorR.style.transform = `perspective(1400px) translateX(${open * 102}%) rotateY(${-swing}deg)`;
+  doorL.style.visibility = doorR.style.visibility = open > .995 ? 'hidden' : '';
+  seam.style.opacity = clamp(1 - open * 4);
+  arena.style.transform = `scale(${1.16 - .16 * open})`;
+  arena.style.filter = `brightness(${.45 + .55 * open})`;
+  const e = ease(clamp(p / .62));
+  const ls = .25 * (1 - e);
+  wL.style.letterSpacing = wR.style.letterSpacing = ls + 'em';
+  const s = 1 + (geo.sMax - 1) * e, mid = geo.vw / 2;
+  const dy = -e * (geo.vh / 2 - geo.topY);
+  const dxL = e * (geo.gutter - (mid - 10 - wL.offsetWidth * s));
+  const dxR = e * ((geo.vw - geo.gutter) - (mid + 10 + wR.offsetWidth * s));
+  wL.style.transform = `translate(${dxL}px, calc(-50% + ${dy}px)) scale(${s})`;
+  wR.style.transform = `translate(${dxR}px, calc(-50% + ${dy}px)) scale(${s})`;
+  heroFoot.style.opacity = clamp(1 - p * 5);
+  const c = clamp((p - .42) / .22);
+  arenaCopy.style.opacity = c; arenaCopy.style.transform = `translateY(${(1 - c) * 30}px)`;
+  luItems.forEach((el, i) => { const t = ease(clamp((p - .5 - i * .05) / .25)); el.style.opacity = t; el.style.transform = `translateY(${(1 - t) * 140}px)`; });
+  nav.classList.toggle('solid', portal.getBoundingClientRect().bottom < 80);
+}
+let ticking = false;
+const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(() => { ticking = false; render(); }); } };
+addEventListener('scroll', onScroll, { passive: true });
+let rT; addEventListener('resize', () => { clearTimeout(rT); rT = setTimeout(() => { measure(); drawArena(); render(); }, 120); });
+measure(); drawArena(); render();
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { measure(); drawArena(); render(); });
+if (!reduced) {
+  const t0 = performance.now() + 500;
+  (function crackAnim(now) { const t = clamp((now - t0) / 1400); crack = .012 * ease(t); render(); if (t < 1) requestAnimationFrame(crackAnim); })(t0);
+}
+
+/* ---------- deck ---------- */
+const deck = document.getElementById('deck');
+deck.innerHTML = SPORTS.map((s, i) => `<article class="card" data-sport="${i}" style="--sc:${s.color}">
+  <header><span class="card-idx">${String(i + 1).padStart(2, '0')}</span><span class="card-tag">${s.name}</span></header>
+  <div class="card-word" aria-hidden="true">${s.word}</div>
+  <div class="card-jersey">${designSVG(i, s.designs[0], { number: String(i * 7 + 3) })}</div>
+  <ul class="card-feats">${s.feats.map(f => `<li>${f}</li>`).join('')}</ul>
+  <button type="button" class="card-go" data-sport="${i}">Xem ${s.designs.length} mẫu ${s.short.toLowerCase()} →</button>
+</article>`).join('');
+const cards = [...deck.children];
+let order = SPORTS.map((_, i) => i);
+const sportGrid = document.getElementById('sportGrid');
+sportGrid.innerHTML = SPORTS.map((s, i) => `<button type="button" class="sport-box" data-sport="${i}" style="--sc:${s.color}" aria-pressed="false">${icon(s.icon)}${s.name}</button>`).join('');
+function layout() {
+  order.forEach((si, pos) => {
+    const c = cards[si];
+    c.style.zIndex = 10 - pos;
+    c.style.transform = `translate(${pos * 12}px, ${-pos * 12}px) rotate(${pos * 3}deg) scale(${1 - pos * .04})`;
+    c.style.opacity = pos < 4 ? 1 : 0;
+    c.classList.toggle('top', pos === 0);
+    c.setAttribute('aria-hidden', pos === 0 ? 'false' : 'true');
+    c.querySelector('.card-go').tabIndex = pos === 0 ? 0 : -1;
+  });
+  document.getElementById('deckCount').textContent = `${String(order[0] + 1).padStart(2, '0')} / ${String(SPORTS.length).padStart(2, '0')}`;
+  [...sportGrid.children].forEach((b, i) => b.setAttribute('aria-pressed', i === order[0]));
+}
+function flyOut(dir) {
+  const c = cards[order[0]];
+  c.style.transition = 'transform .4s ease-in, opacity .4s';
+  c.style.transform = `translate(${dir * 640}px, 40px) rotate(${dir * 28}deg)`;
+  c.style.opacity = 0;
+  setTimeout(() => { order.push(order.shift()); c.style.transition = 'none'; layout(); c.offsetWidth; c.style.transition = ''; }, reduced ? 0 : 360);
+}
+function prevCard() {
+  order.unshift(order.pop());
+  const c = cards[order[0]];
+  c.style.transition = 'none'; c.style.transform = 'translate(-640px, 40px) rotate(-28deg)'; c.style.opacity = 0;
+  c.offsetWidth; c.style.transition = ''; layout();
+}
+function deckTo(si) { while (order[0] !== si) order.push(order.shift()); layout(); }
+document.getElementById('nextBtn').onclick = () => flyOut(1);
+document.getElementById('prevBtn').onclick = prevCard;
+sportGrid.addEventListener('click', e => { const b = e.target.closest('.sport-box'); if (b) { deckTo(+b.dataset.sport); showSport(+b.dataset.sport); } });
+deck.addEventListener('click', e => { const b = e.target.closest('.card-go'); if (b) { showSport(+b.dataset.sport); goTo('mau-ao'); } });
+let drag = null;
+deck.addEventListener('pointerdown', e => {
+  const c = e.target.closest('.card.top'); if (!c || e.target.closest('button')) return;
+  drag = { c, x0: e.clientX, y0: e.clientY, dx: 0, t0: performance.now(), id: e.pointerId };
+  c.setPointerCapture(e.pointerId); c.style.transition = 'none';
+});
+deck.addEventListener('pointermove', e => {
+  if (!drag || e.pointerId !== drag.id) return;
+  drag.dx = e.clientX - drag.x0;
+  drag.c.style.transform = `translate(${drag.dx}px, ${(e.clientY - drag.y0) * .25}px) rotate(${drag.dx / 14}deg)`;
+});
+const endDrag = e => {
+  if (!drag || e.pointerId !== drag.id) return;
+  const { c, dx, t0 } = drag; drag = null;
+  const v = Math.abs(dx) / Math.max(1, performance.now() - t0);
+  if (Math.abs(dx) > 90 || (v > .6 && Math.abs(dx) > 30)) flyOut(Math.sign(dx));
+  else { c.style.transition = ''; layout(); }
+};
+deck.addEventListener('pointerup', endDrag);
+deck.addEventListener('pointercancel', endDrag);
+layout();
+
+/* ---------- catalogue ---------- */
+let curSport = 0;
+const tabs = document.getElementById('tabs'), catGrid = document.getElementById('catGrid');
+tabs.innerHTML = SPORTS.map((s, i) => `<button type="button" class="tab" data-sport="${i}" style="--sc:${s.color}" aria-pressed="false">${icon(s.icon)}${s.short}</button>`).join('');
+tabs.addEventListener('click', e => { const b = e.target.closest('.tab'); if (b) showSport(+b.dataset.sport); });
+function showSport(si) {
+  curSport = si; const s = SPORTS[si];
+  document.getElementById('catTitle').textContent = s.name;
+  document.getElementById('catFeats').innerHTML = s.feats.map(f => `<span>${f}</span>`).join('');
+  [...tabs.children].forEach((b, i) => b.setAttribute('aria-pressed', i === si));
+  catGrid.innerHTML = s.designs.map((d, di) => `<button type="button" class="design" data-d="${di}" style="--sc:${s.color};animation-delay:${di * 70}ms">
+    <div class="design-stage">${designSVG(si, d, { number: String(di * 4 + 7) })}</div>
+    <div class="design-meta"><span class="code">${d.code}</span><b>${d.name}</b><small>Họa tiết ${PATTERNS[d.pattern].toLowerCase()} · ${colorName(d.c[0]).toLowerCase()} phối ${colorName(d.c[1]).toLowerCase()}</small></div>
+    <span class="design-go">Thiết kế mẫu này →</span></button>`).join('');
+}
+catGrid.addEventListener('click', e => { const b = e.target.closest('.design'); if (b) { pickDesign(curSport, +b.dataset.d); goTo('thiet-ke'); } });
+showSport(0);
+
+/* ---------- studio ---------- */
+const st = { si:0, di:0, pattern:'shards', c:['#1f4fd8','#0f1b3d',W], view:'front' };
+const $ = id => document.getElementById(id);
+const fDesign = $('fDesign'), fName = $('fName'), fNum = $('fNum'), fQty = $('fQty'), fNote = $('fNote');
+fDesign.innerHTML = SPORTS.map((s, si) => `<optgroup label="${s.name}">${s.designs.map((d, di) => `<option value="${si}:${di}">${d.code} · ${d.name}</option>`).join('')}</optgroup>`).join('');
+const patternChips = $('patternChips');
+patternChips.innerHTML = Object.entries(PATTERNS).map(([k, v]) => `<button type="button" data-p="${k}" aria-pressed="false">${v}</button>`).join('');
+['sw1','sw2','sw3'].forEach((id, gi) => {
+  $(id).innerHTML = COLORS.map(([n, v], ci) => `<input type="radio" name="${id}" id="${id}-${ci}" value="${v}"><label for="${id}-${ci}" style="--c:${v}" title="${n}"><span hidden>${n}</span></label>`).join('');
+  $(id).addEventListener('change', e => { st.c[gi] = e.target.value; update(); });
+});
+function syncControls() {
+  fDesign.value = `${st.si}:${st.di}`;
+  [...patternChips.children].forEach(b => b.setAttribute('aria-pressed', b.dataset.p === st.pattern));
+  ['sw1','sw2','sw3'].forEach((id, gi) => { const r = $(id).querySelector(`input[value="${st.c[gi]}"]`); if (r) r.checked = true; });
+}
+function pickDesign(si, di) {
+  const d = SPORTS[si].designs[di];
+  Object.assign(st, { si, di, pattern: d.pattern, c: [...d.c] });
+  syncControls(); update();
+}
+fDesign.addEventListener('change', () => { const [si, di] = fDesign.value.split(':').map(Number); pickDesign(si, di); });
+patternChips.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; st.pattern = b.dataset.p; syncControls(); update(); });
+fName.addEventListener('input', update);
+fNum.addEventListener('input', () => { fNum.value = fNum.value.replace(/\D/g, '').slice(0, 2); update(); });
+fNote.addEventListener('input', update);
+const setQty = v => { fQty.value = Math.max(5, Math.min(999, v | 0 || 5)); update(); };
+$('qtyMinus').onclick = () => setQty(+fQty.value - 1);
+$('qtyPlus').onclick = () => setQty(+fQty.value + 1);
+fQty.addEventListener('change', () => setQty(+fQty.value));
+document.querySelectorAll('.seg button').forEach(b => b.addEventListener('click', () => {
+  st.view = b.dataset.view;
+  document.querySelectorAll('.seg button').forEach(x => x.setAttribute('aria-pressed', x === b));
+  $('flip').classList.toggle('back', st.view === 'back');
+}));
+function summaryText() {
+  const s = SPORTS[st.si], d = s.designs[st.di];
+  const lines = [
+    'Chào SPORTS WEAR, mình muốn đặt áo:',
+    `• Loại áo: ${s.name}`,
+    `• Mẫu: ${d.code} ${d.name}` + (st.pattern !== d.pattern ? ` (đổi họa tiết: ${PATTERNS[st.pattern]})` : ''),
+    `• Màu: ${colorName(st.c[0])} / phối ${colorName(st.c[1])} / chữ số ${colorName(st.c[2])}`,
+    s.cut === 'polo' ? `• In lưng: ${fName.value.trim().toUpperCase() || '(chưa có)'}` : `• Tên in lưng: ${fName.value.trim().toUpperCase() || '(chưa có)'} · Số: ${fNum.value || '(chưa có)'}`,
+    `• Số lượng: ${fQty.value} bộ`
+  ];
+  if (fNote.value.trim()) lines.push(`• Ghi chú: ${fNote.value.trim()}`);
+  return lines.join('\n');
+}
+function update() {
+  const s = SPORTS[st.si], d = s.designs[st.di];
+  const opts = { pattern: st.pattern, c: st.c, name: fName.value.trim(), number: fNum.value };
+  $('pvFront').innerHTML = designSVG(st.si, d, { ...opts, view: 'front' });
+  $('pvBack').innerHTML = designSVG(st.si, d, { ...opts, view: 'back' });
+  $('pvCaption').textContent = `${d.code} · ${d.name} · ${s.name}`;
+  $('summary').textContent = summaryText();
+}
+async function copy(text, okMsg) {
+  try { await navigator.clipboard.writeText(text); $('status').textContent = okMsg; return true; }
+  catch { $('status').textContent = 'Trình duyệt chặn sao chép tự động. Hãy bôi đen nội dung ở trên để chép thủ công.';
+    const r = document.createRange(); r.selectNodeContents($('summary')); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); return false; }
+}
+$('copyBtn').onclick = () => copy(summaryText(), 'Đã chép nội dung đơn. Dán vào khung chat Zalo để gửi shop.');
+$('zaloBtn').addEventListener('click', () => { copy(summaryText(), 'Đã chép nội dung đơn. Trong Zalo, dán vào khung chat với shop.'); });
+$('copyPhone').onclick = async e => {
+  const b = e.currentTarget;
+  try { await navigator.clipboard.writeText('0963265976'); b.textContent = 'Đã chép'; }
+  catch { const r = document.createRange(); r.selectNodeContents($('phone')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = 'Đã bôi đen số'; }
+  setTimeout(() => b.textContent = 'Chép số', 1800);
+};
+pickDesign(0, 0);
+
+function goTo(id) { $(id).scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' }); }
+})();
+</script>
